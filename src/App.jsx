@@ -2,17 +2,19 @@
 
 import React from 'react'
 import { Route, Outlet, Navigate, Routes } from 'react-router-dom'
-import Login from './pages/auth/login'
-import SignUp from './pages/auth/signUp'
+import SignUp from './pages/auth/SignUp.jsx'
 import Dashboard from './pages/dashboard'
 import Settings from './pages/settings'
 import AccountPage from './pages/accountPage'
 import Transaction from './pages/transaction' 
 import useStore from './store/index.js'
+import Login from './pages/auth/Login.jsx'
+import { setAuthToken } from './libs/apiCall.js'
+import { Toaster } from 'sonner'
 
 const RootLayout = () => {
   const { user } = useStore((state) => state)
-  console.log(user)
+  setAuthToken(user?.token || "")
 
   return !user ? (
     <Navigate to="login" replace={true} />
@@ -20,9 +22,11 @@ const RootLayout = () => {
     <>
       {/* <Navbar /> */}
 
-      <div>
-        <Outlet />
-      </div>
+        <div
+          className="min-h-[cal(h-screen-100px)]"  
+        >
+          <Outlet />
+        </div>
     </>
   )
 }
@@ -32,8 +36,15 @@ function App() {
   
   return (
     <>
-      <div>
+      <div
+        className="w-full min-h-screen px-6 bg-gray-100 md:px-20 dark:bg-slate-900"  
+      >
         <Routes >
+
+          
+          <Route path='/login' element={<Login/>} />
+          <Route path='/signup' element={<SignUp />} />
+
           <Route element={<RootLayout />}>
             <Route path='/' element={<Navigate to="/overview" />} />
             <Route path='/overview' element={<Dashboard />} />
@@ -42,10 +53,9 @@ function App() {
             <Route path='/transaction' element={<Transaction />} />
           </Route>
           
-          <Route path='/login' element={<Login />} />
-          <Route path='/Signup' element={<SignUp />} />
         </Routes>
       </div>
+      <Toaster richColors position='top-ceter'/>
     </>
   )
 }
