@@ -2,13 +2,17 @@ import React, {useEffect, useState} from 'react'
 
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
-import { useStore } from 'zustand'
-import { zodResolver } from '@hookform/resolvers'
+import useStore  from '../../store/index.js'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from 'react-router-dom'
 
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card'
 import Seporator from "../../components/Separator.jsx"
-import {Input} from "../../components/ui/input.jsx"
+import Input from "../../components/ui/input.jsx"
+import { SocialAuth } from "../../components/social-auth.jsx"
+
+// import { Button } from "../../components/ui/button.jsx"
+
 
 const RegisterSchema = z.object({
   email: z
@@ -22,7 +26,7 @@ const RegisterSchema = z.object({
     .string({
       required_error: "Name is required"
     }),
-  passward: z
+  password: z
     .string({
       required_error: "Password is required"
     })
@@ -54,7 +58,7 @@ const SignUp = () => {
   return (
     <div className='flex items-center justify-center w-full min-h-screen py-10'>
       <Card className='w-[400px] bg-white dark:bg-black/20 shadow-md overflow-hidden'>
-        <div className='p-6 md:-8'>
+        <div className='p-6 md:p-8'>
           <CardHeader className='py-0'>
             <CardTitle className='mb-8 text-center dark:text-white'>
               Create Account
@@ -70,7 +74,7 @@ const SignUp = () => {
             >
               <div
                 className="mb-8 space-y-6">
-                <Socialauth
+                <SocialAuth
                   isLoading={loading}
                   setLoading={setLoading}
 

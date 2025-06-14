@@ -10,87 +10,101 @@ import  useStore  from "../store/index.js"
 import { useNavigate } from "react-router-dom"
 import api from "../libs/apiCall.js"
 import { toast } from "sonner"
-import { Button } from "@headlessui/react"
+import { Button } from "../components/ui/button.jsx"
 import { FcGoogle } from "react-icons/fc"
 import { FaGithub } from "react-icons/fa"
 
-export const Socialauth = ({ isLoading, setLoading }) => {
-  const [user] = useAuthState(auth)
-  const [selectedProvider, setSelectedProvider] = useState("google")
-  const { setCredentails } = useStore((state) => state)
-  const navigate = useNavigate()
+export const SocialAuth = ({ isLoading, setLoading }) => {
+  const [user] = useAuthState(auth);
+  const [selectedProvider, setSelectedProvider] = useState(null);
+  const { setCredentials } = useStore((state) => state);
+  const navigate = useNavigate();
 
-  const signInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider()
-
-    setSelectedProvider("google")
-
+  // Common sign-in handler
+  const handleSignIn = async (provider) => {
     try {
-      
-      const res = await signInWithPopup(auth, provider)
-      console.log(res)
-
+      setLoading(true);
+      const result = await signInWithPopup(auth, provider);
+      console.log("Auth result:", result);
+      return result.user;
+    } catch (err) {
+      console.error(`Error signing in with ${provider.providerId}:`, err);
+      toast.error(`Failed to sign in with ${provider.providerId}`);
+      throw err;
+    } finally {
+      setLoading(false);
     }
-    catch (err) {
-      console.error("Error signing in with google", err)
-    }
-  }
+  };
 
-  const signInWithGithub = async() => {
-    const provider = GithubAuthProvider()
+  const signInWithGoogle = () => {
+    setSelectedProvider("google");
+    return handleSignIn(new GoogleAuthProvider());
+  };
 
+  const signInWithGithub = () => {
     setSelectedProvider("github");
-    try {
-      
-      const res = await signInWithPopup(auth, provider)
-      console.log(res)
+    return handleSignIn(new GithubAuthProvider());
+  };
 
+  // Save user to your backend
+  const saveUserToDb = async (user) => {
+    try {
+      setLoading(true);
+      const [firstName, ...lastNameParts] = user.displayName.split(' ');
+    const lastName = lastNameParts.join(' ') || '';
+      const userData = {
+        firstName,
+        lastName,
+        email: user.email,
+        password: user.uid,
+        provider: user.provider || selectedProvider
+      };
+
+      // Check if backend is reachable
+      try {
+        await api.get("/"); // Simple connectivity check
+      } catch (e) {
+        console.error("Backend server is not running",e);
+      }
+
+      const { data: res } = await api.post("/auth/signup", userData, {
+        timeout: 5000, // 5-second timeout
+      });
+
+      if (res?.user) {
+        const userInfo = { ...res.user, token: res.token };
+        localStorage.setItem("user", JSON.stringify(userInfo));
+        setCredentials(userInfo);
+        toast.success(res.message || "Login successful");
+        navigate("/overview");
+      }
+    } catch (err) {
+      // Handle specific error cases
+      if (err.response?.status === 409) {
+        // User already exists, try logging in instead
+        try {
+          const { data: loginRes } = await api.post('/auth/login', {
+            email: user.email,
+            password: user.uid
+          });
+          console.log(loginRes)
+          // Handle successful login...
+        } catch (loginErr) {
+          // Handle login error
+          console.error(loginErr)
+        }
+      } else {
+        toast.error(err.response?.data?.message || "Authentication failed");
+      }
+    } finally {
+      setLoading(false);
     }
-    catch (err) {
-      console.error("Error signing in with github", err)
-    }
-  }
+  };
 
   useEffect(() => {
-    const saveUserToDb = async () => {
-      try {
-        const userData = {
-          name: user.displayName,
-          email: user.email,
-          provider: selectedProvider,
-          uid: user.uid
-        };
-
-        setLoading(true)
-
-        const { data: res } = await api.post("/auth/login", userData)
-        console.log(res)
-
-        if (res?.user) {
-          toast.success(res?.message);
-          const userInfo = { ...res?.user, token: res?.token }
-          localStorage.setItem("user", JSON.stringify(userInfo))
-
-          setCredentails(userInfo)
-
-          setTimeout(() => {
-            navigate("/overview")
-          }, 1500)
-        }
-      }
-      catch (err) {
-        console.error("Something went wrong", err)
-        toast.error(err?.response?.data?.message || err.message)
-      }
-      finally {
-        setLoading(false)
-      }
-    };
-
     if (user) {
-      saveUserToDb()
+      saveUserToDb(user);
     }
-
   }, [user?.uid]);
 
   return (
@@ -105,7 +119,7 @@ export const Socialauth = ({ isLoading, setLoading }) => {
         type="button"
       >
         <FcGoogle className="mr-2 size-5" />
-        Continue with Google
+        Google
       </Button>
 
        <Button
@@ -116,7 +130,7 @@ export const Socialauth = ({ isLoading, setLoading }) => {
         type="button"
       >
         <FaGithub className="mr-2 size-5" />
-        Continue with GitHub
+        GitHub
       </Button> 
 
 
@@ -128,3 +142,4 @@ export const Socialauth = ({ isLoading, setLoading }) => {
   )
 
 }
+export default SocialAuth

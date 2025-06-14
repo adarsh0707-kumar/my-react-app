@@ -4,8 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npx tailwindcss -i ./src/index.css -o ./src/output.css --watch\" \"vite\"",
-    "build": "tailwindcss -i ./src/index.css -o ./src/output.css --minify && vite build",
+    "dev": "vite",
+    "tailwind": "npx tailwindcss -i ./src/index.css -o ./src/output.css --watch",
+    "dev:full": "concurrently \"npm run tailwind\" \"npm run dev\"",
+    "dev:host": "concurrently \"npm run tailwind\" \"vite --host\"",
     "lint": "eslint .",
     "preview": "vite preview"
   },

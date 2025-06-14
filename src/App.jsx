@@ -9,7 +9,7 @@ import AccountPage from './pages/accountPage'
 import Transaction from './pages/transaction' 
 import useStore from './store/index.js'
 import Login from './pages/auth/Login.jsx'
-import { setAuthToken } from './libs/apiCall.js'
+import { setAuthToken }  from './libs/apiCall.js'
 import { Toaster } from 'sonner'
 
 const RootLayout = () => {
