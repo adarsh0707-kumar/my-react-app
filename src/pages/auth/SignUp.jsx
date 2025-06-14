@@ -10,6 +10,8 @@ import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/ca
 import Seporator from "../../components/Separator.jsx"
 import Input from "../../components/ui/input.jsx"
 import { SocialAuth } from "../../components/social-auth.jsx"
+import { Button } from '../../components/ui/button.jsx'
+import { BiLoader } from 'react-icons/bi'
 
 // import { Button } from "../../components/ui/button.jsx"
 
@@ -25,12 +27,15 @@ const RegisterSchema = z.object({
   firstName: z
     .string({
       required_error: "Name is required"
-    }),
+    })
+    .min(3, "FirstName is required"),
+  lastName: z
+    .string(),
   password: z
     .string({
       required_error: "Password is required"
     })
-    .min(1, "Password is required")
+    .min(6, "Password is required")
 
 })
 
@@ -84,17 +89,64 @@ const SignUp = () => {
                 <Input
                   disable={loading}
                   id="firstName"
-                  lable="Name"
+                  label="FirstName"
                   name="firstName"
                   
                   type="text"
-                  placeholder="Jon Snow"
+                  placeholder="Jon"
                   error={errors?.firstName?.message}
                   {...register("firstName")}
                   className="text-sm border dark:border-gray-800 dark:bg-transparent dark:placeholder:text-gray-700 dark:text-gray-400 dark:outline-none"
                 />
 
+                <Input
+                  disable={loading}
+                  id="lastName"
+                  label="LastName"
+                  name="lastName"
+                  
+                  type="text"
+                  placeholder="Snow"
+                  error={errors?.lastName?.message}
+                  {...register("lastName")}
+                  className="text-sm border dark:border-gray-800 dark:bg-transparent dark:placeholder:text-gray-700 dark:text-gray-400 dark:outline-none"
+                />
+
+                <Input
+                  disable={loading}
+                  id="email"
+                  label="Email"
+                  name="email"
+                  
+                  type="email"
+                  placeholder="jonsnow@gmail.com"
+                  error={errors?.email?.message}
+                  {...register("email")}
+                  className="text-sm border dark:border-gray-800 dark:bg-transparent dark:placeholder:text-gray-700 dark:text-gray-400 dark:outline-none"
+                />
+
+                <Input
+                  disable={loading}
+                  id="password"
+                  label="Password"
+                  name="password"
+                  
+                  type="password"
+                  placeholder="Snow@1234"
+                  error={errors?.password?.message}
+                  {...register("password")}
+                  className="text-sm border dark:border-gray-800 dark:bg-transparent dark:placeholder:text-gray-700 dark:text-gray-400 dark:outline-none"
+                />
+
               </div>
+
+              <Button
+                type="submit"
+                className="w-full bg-violet-800"
+                disable={loading}
+              >
+                {loading ? <BiLoader className="text-2xl text-white animate-spin"/> : "Create an account"}
+              </Button>
 
             </form>
 
