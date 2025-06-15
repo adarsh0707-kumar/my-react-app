@@ -51,26 +51,39 @@ export const SocialAuth = ({ isLoading, setLoading }) => {
     try {
       setLoading(true);
       const [firstName, ...lastNameParts] = user.displayName.split(' ');
-    const lastName = lastNameParts.join(' ') || '';
+      const lastName = lastNameParts.join(' ') || '';
+  
+      // First try to log in the user
+      try {
+        const { data: loginRes } = await api.post('/auth/login', {
+          email: user.email,
+          password: user.uid
+        });
+        
+        const userInfo = { ...loginRes.user, token: loginRes.token };
+        localStorage.setItem("user", JSON.stringify(userInfo));
+        setCredentials(userInfo);
+        toast.success(loginRes.message || "Login successful");
+        navigate("/overview");
+        return;
+      } catch (loginErr) {
+        // Only proceed to signup if login fails with 404 (user not found)
+        if (loginErr.response?.status !== 404) {
+          throw loginErr;
+        }
+      }
+  
+      // If login failed with 404, proceed with signup
       const userData = {
         firstName,
         lastName,
         email: user.email,
         password: user.uid,
-        provider: user.provider || selectedProvider
+        provider: user.providerData[0]?.providerId || selectedProvider
       };
-
-      // Check if backend is reachable
-      try {
-        await api.get("/"); // Simple connectivity check
-      } catch (e) {
-        console.error("Backend server is not running",e);
-      }
-
-      const { data: res } = await api.post("/auth/signup", userData, {
-        timeout: 5000, // 5-second timeout
-      });
-
+  
+      const { data: res } = await api.post("/auth/signup", userData);
+      
       if (res?.user) {
         const userInfo = { ...res.user, token: res.token };
         localStorage.setItem("user", JSON.stringify(userInfo));
@@ -79,23 +92,8 @@ export const SocialAuth = ({ isLoading, setLoading }) => {
         navigate("/overview");
       }
     } catch (err) {
-      // Handle specific error cases
-      if (err.response?.status === 409) {
-        // User already exists, try logging in instead
-        try {
-          const { data: loginRes } = await api.post('/auth/login', {
-            email: user.email,
-            password: user.uid
-          });
-          console.log(loginRes)
-          // Handle successful login...
-        } catch (loginErr) {
-          // Handle login error
-          console.error(loginErr)
-        }
-      } else {
-        toast.error(err.response?.data?.message || "Authentication failed");
-      }
+      // Handle other errors
+      toast.error(err.response?.data?.message || "Authentication failed");
     } finally {
       setLoading(false);
     }

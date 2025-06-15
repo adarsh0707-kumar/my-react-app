@@ -4,14 +4,17 @@ import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 import useStore  from '../../store/index.js'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { BiLoader } from 'react-icons/bi'
 
-import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card'
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../../components/ui/card'
 import Seporator from "../../components/Separator.jsx"
 import Input from "../../components/ui/input.jsx"
 import { SocialAuth } from "../../components/social-auth.jsx"
 import { Button } from '../../components/ui/button.jsx'
-import { BiLoader } from 'react-icons/bi'
+import { toast } from 'sonner'
+import api from '../../libs/apiCall.js'
+
 
 // import { Button } from "../../components/ui/button.jsx"
 
@@ -35,7 +38,7 @@ const RegisterSchema = z.object({
     .string({
       required_error: "Password is required"
     })
-    .min(6, "Password is required")
+    .min(8, "Password must be 8 characters")
 
 })
 
@@ -57,7 +60,26 @@ const SignUp = () => {
     }, [user])
   
     const onSubmit = async (data) => {
-      console.log(data)
+      try {
+        setLoading(true)
+
+        const {data:res} = await api.post("/auth/signup",data)
+
+        if (res?.user) {
+          toast.success("Account created successfully. You can now login...");
+          setTimeout(() => {
+            navigate("/login")
+          }, 1500)
+        }
+
+      }
+      catch (err) {
+        console.error(err)
+        toast.error(err.response?.data?.message || err.message )
+      }
+      finally {
+        setLoading(false)
+      }
     }
 
   return (
@@ -142,7 +164,7 @@ const SignUp = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-violet-800"
+                className="w-full bg-violet-800 cursor-pointer"
                 disable={loading}
               >
                 {loading ? <BiLoader className="text-2xl text-white animate-spin"/> : "Create an account"}
@@ -152,6 +174,20 @@ const SignUp = () => {
 
           </CardContent>
         </div>
+
+        <CardFooter
+          className="justify-center gap-2"
+        >
+          <p className="text-sm text-gray-600">Already have an account?</p>
+          <Link
+            to="/login"
+            className="text-sm font-semibold text-violet-600 hover:underline"
+          >
+            Login
+          
+          </Link>
+
+        </CardFooter>
       </Card>
     </div>
   )
