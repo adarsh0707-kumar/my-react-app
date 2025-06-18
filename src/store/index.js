@@ -5,7 +5,7 @@ const useStore = create((set) => ({
   user: JSON.parse(localStorage.getItem("user")) ?? null,
   
   setTheme: (value) => set({ theme: value }),
-  setCredentails: (user) => set({ user }),
+  setCredentials: (user) => set({ user }),
   signOut: () => set({ user: null}),
 }))
 

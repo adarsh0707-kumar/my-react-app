@@ -36,45 +36,54 @@ const LoginSchema = z.object({
 })
 
 const Login = () => {
-  const { user, setCredentails } = useStore(state => state)
+  const { user, setCredentials } = useStore(state => state)
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors , isValid},
   } = useForm({
     resolver: zodResolver(LoginSchema),
+    mode: "onChange"
   })
 
     const navigate = useNavigate()
-    const [loading, setLoading] = useState()
+    const [loading, setLoading] = useState(false)
+    const [submitError, setSubmitError] = useState(null)
   
     useEffect(() => {
       user && navigate("/")
     }, [user])
   
-    const onSubmit = async (data) => {
+  const onSubmit = async (data) => {
+
       try {
         setLoading(true)
+        setSubmitError(null)
 
-        const {data:res} = await api.post("/auth/login",data)
+        const response = await api.post("/auth/login",data)
+        if (response.data?.data.user) {
+          toast.success("Account Login successfully...", response?.message);
 
-        if (res?.user) {
-          toast.success("Account Login successfully...", res?.message);
 
-          const userInfo = { ...res?.user, token: res.token }
+          const userInfo = {
+            ...response.data.data.user,
+            token: response.data.data.token
+          }
+
           localStorage.setItem("user", JSON.stringify(userInfo))
 
-          setCredentails(userInfo)
+          setCredentials(userInfo)
 
-          setTimeout(() => {
-            navigate("/overview")
-          }, 1500)
+          
+          navigate("/overview")
+          
         }
 
       }
       catch (err) {
-        console.error(err)
-        toast.error(err.response?.data?.message || err.message )
+        console.error("Login error: ", err)
+        setSubmitError(err.response?.data?.message || err.message)
+        toast.error(err.response?.data?.message || err.message || "Login failed" )
       }
       finally {
         setLoading(false)
@@ -109,7 +118,7 @@ const Login = () => {
 
 
                 <Input
-                  disable={loading}
+                  disabled={loading}
                   id="email"
                   label="Email"
                   name="email"
@@ -122,7 +131,7 @@ const Login = () => {
                 />
 
                 <Input
-                  disable={loading}
+                  disabled={loading}
                   id="password"
                   label="Password"
                   name="password"
@@ -133,13 +142,16 @@ const Login = () => {
                   {...register("password")}
                   className="text-sm border dark:border-gray-800 dark:bg-transparent dark:placeholder:text-gray-700 dark:text-gray-400 dark:outline-none"
                 />
+                {submitError && (
+                  <p className="text-sm text-red-500"> { submitError}</p>
+                )}
 
               </div>
 
               <Button
                 type="submit"
                 className="w-full bg-violet-800 cursor-pointer"
-                disable={loading}
+                disabled={loading || !isValid}
               >
                 {loading ? <BiLoader className="text-2xl text-white animate-spin"/> : "Login an account"}
               </Button>
