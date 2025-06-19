@@ -5,6 +5,9 @@ import Loading from '../components/Loading.jsx'
 import Info from '../components/Info.jsx'
 import Stats from '../components/Stats.jsx'
 import { BiDoughnutChart } from 'react-icons/bi'
+import DoughnutChart from '../components/Piechart.jsx'
+import { Chart } from '../components/Chart.jsx'
+import RecentTransaction from '../components/RecentTransaction.jsx'
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -78,17 +81,25 @@ const Dashboard = () => {
       <Stats dt={dashboardData} />
 
 
-      <div className="flex flex-col-reverse items-center gap-10 w-full md:flex-row">
-        <Chart data={dashboardData.chartData} />
-        {
-          (dashboardData.income > 0 && (
-            <BiDoughnutChart
-              dt={dashboardData}
-            />
-          ))
-        }
+      <div className="flex flex-col-reverse items-stretch gap-6 w-full md:flex-row mt-8">
+        <div className="flex-1">
+          <Chart data={dashboardData.chartData} />
+        </div>
         
+        {(dashboardData.income > 0 || dashboardData.expense > 0) && (
+          <div className="md:w-1/3">
+            <DoughnutChart dt={dashboardData} />
+          </div>
+        )}
+      </div>
 
+      <div className="flex flex-col-reverse gap-0 md:flex-row md:gap-10 2xl:gap-20">
+        <RecentTransaction data={ dashboardData.lastTransactions} />
+        {
+          dashboardData?.lastAccount?.length > 0 &&
+          <Accounts data={ dashboardData.lastAccount} />
+        }
+         
       </div>
 
 
