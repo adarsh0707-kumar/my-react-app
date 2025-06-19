@@ -1,5 +1,5 @@
 import { Menu, Popover } from "@headlessui/react";
-import React, { useState } from "react";
+import React from "react";
 import { MdOutlineClose, MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { RiCurrencyFill } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -121,7 +121,7 @@ const MobileSidebar = () => {
 const Navbar = () => {
   const location = useLocation();
   const path = location.pathname;
-  const [openSidebar, setOpenSidebar] = useState(false);
+  // const [openSidebar, setOpenSidebar] = useState(false);
 
   return (
     <div className='w-full flex items-center justify-between py-6'>
