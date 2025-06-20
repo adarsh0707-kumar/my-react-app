@@ -1,6 +1,6 @@
 // Importing necessary libraries and components
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Outlet, Navigate, Routes } from 'react-router-dom'
 import SignUp from './pages/auth/SignUp.jsx'
 import Dashboard from './pages/dashboard'
@@ -34,7 +34,16 @@ const RootLayout = () => {
 
 function App() {
 
+  const {theme} = useStore((state) => state)
   
+  useEffect(() => {
+    if(theme === 'dark') {
+      document.body.classList.add('dark')
+    }
+    else {
+      document.body.classList.remove('dark')
+    }
+  }, [theme])
   return (
     <>
       <div

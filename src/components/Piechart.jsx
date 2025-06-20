@@ -14,10 +14,10 @@ const DoughnutChart = ({ dt }) => {
   ];
 
   return (
-    <div className="w-full md:w-1/3 flex flex-col items-center bg-gray-50 dark:bg-transparent p-4 rounded-lg shadow">
+    <div className="w-full md:w-[130%] flex flex-col items-center bg-gray-50 dark:bg-transparent p-4 rounded-lg shadow">
       <Title title="Income vs Expense" />
       
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={400}>
         <PieChart>
           <Pie
             data={data}

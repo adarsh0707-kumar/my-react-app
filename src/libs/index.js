@@ -1,16 +1,16 @@
 
 
 export const maskAccountNumber = (accountNumber) => {
-  if (typeof accountNumber !== "string" || accountNumber.length < 12) {
+  if (typeof accountNumber !== "string" || accountNumber.length < 10) {
     return accountNumber
   }
 
-  const firstFour = accountNumber.substring(0, 4)
-  const lastFour = accountNumber.substring(accountNumber.length - 4)
+  const firstTwo = accountNumber.substring(0, 2)
+  const lastThree = accountNumber.substring(accountNumber.length - 3)
 
-  const maskedDigits = "*".repeat(accountNumber.length - 8)
+  const maskedDigits = "*".repeat(accountNumber.length - 5)
   
-  return `${firstFour}${maskedDigits}${lastFour}`
+  return `${firstTwo}${maskedDigits}${lastThree}`
 }
 
 export const formatCurrency = (value) => {

@@ -8,16 +8,20 @@ import { BiDoughnutChart } from 'react-icons/bi'
 import DoughnutChart from '../components/Piechart.jsx'
 import { Chart } from '../components/Chart.jsx'
 import RecentTransaction from '../components/RecentTransaction.jsx'
+import Accounts from '../components/Accounts.jsx'
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
     balance: 0,
     income: 0,
     expense: 0,
-    chartData: []
+    chartData: [],
+    lastTransactions: [],
+    lastAccounts: []
   })
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  console.log("Acc",dashboardData.lastAccounts)
 
   const fetchDashboardStats = async () => {
     try {
@@ -30,7 +34,9 @@ const Dashboard = () => {
         balance: response.data?.availableBalance || 0,
         income: response.data?.totalIncome || 0,
         expense: response.data?.totalExpense || 0,
-        chartData: response.data?.chartData || [] 
+        chartData: response.data?.chartData || [] ,
+        lastTransactions: response.data?.lastTransactions || [],
+        lastAccounts: response.data?.lastAccounts || []
       })
 
     } catch (err) {
@@ -82,12 +88,12 @@ const Dashboard = () => {
 
 
       <div className="flex flex-col-reverse items-stretch gap-6 w-full md:flex-row mt-8">
-        <div className="flex-1">
+        <div className="flex-1 w-[100%]">
           <Chart data={dashboardData.chartData} />
         </div>
         
         {(dashboardData.income > 0 || dashboardData.expense > 0) && (
-          <div className="md:w-1/3">
+          <div className="w-[100%] md:w-[25%]">
             <DoughnutChart dt={dashboardData} />
           </div>
         )}
@@ -96,8 +102,8 @@ const Dashboard = () => {
       <div className="flex flex-col-reverse gap-0 md:flex-row md:gap-10 2xl:gap-20">
         <RecentTransaction data={ dashboardData.lastTransactions} />
         {
-          dashboardData?.lastAccount?.length > 0 &&
-          <Accounts data={ dashboardData.lastAccount} />
+          dashboardData?.lastAccounts?.length > 0 &&
+          <Accounts data={ dashboardData.lastAccounts} />
         }
          
       </div>
