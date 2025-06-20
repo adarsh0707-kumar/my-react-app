@@ -1098,9 +1098,19 @@
       width: calc(var(--spacing) * 12);
     }
   }
+  .md\:w-\[\%\] {
+    @media (width >= 48rem) {
+      width: %;
+    }
+  }
   .md\:w-\[0\%\] {
     @media (width >= 48rem) {
       width: 0%;
+    }
+  }
+  .md\:w-\[1\%\] {
+    @media (width >= 48rem) {
+      width: 1%;
     }
   }
   .md\:w-\[15\%\] {

@@ -103,7 +103,7 @@ const Dashboard = () => {
         
         {(dashboardData.income > 0 || dashboardData.expense > 0) && (
           <div
-            className="w-[20%] md:w-[25%]">
+            className="w-[100%] md:w-[20%]">
             <DoughnutChart dt={dashboardData} />
           </div>
         )}
