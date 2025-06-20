@@ -21,7 +21,7 @@ export const Chart = ({ data }) => {
                 tickLine={false} />
               <YAxis tick={{ fill: '#374151', fontSize: 18 }} axisLine={{ stroke: '#d1d5db' }} tickLine={false} />
               <Tooltip contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e5e7eb', borderRadius: '8px' }} labelStyle={{ color: '#6b7280' }} />
-              <Legend wrapperStyle={{ paddingTop: 20 }} formatter={;(value) => (
+              <Legend wrapperStyle={{ paddingTop: 20 }} formatter={(value) => (
                                                                      <span style={{ color: '#6b7280', fontSize: 18 }}>{value}</span>
                                                                    )} />
               <Line
