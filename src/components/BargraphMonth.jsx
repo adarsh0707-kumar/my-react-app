@@ -50,7 +50,6 @@ export const MonthlyBarChart = ({ data = [] }) => {
     return null
   }
 
-
   // If no data, show a message
   if (!data || data.length === 0) {
     return (
@@ -66,42 +65,47 @@ export const MonthlyBarChart = ({ data = [] }) => {
   return (
     <div className='flex-1 w-full mt-5'>
       <Title title='Monthly Income vs Expense' />
-      <ResponsiveContainer width='100%' height={500}>
-        <BarChart
-          data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          barGap={4}
-          barCategoryGap={12}>
-          <CartesianGrid strokeDasharray='0 3' stroke='#f0f0fa' />
-          <XAxis dataKey='label' tick={{ fill: '#666' }} />
-          <YAxis tick={{ fill: '#666' }} />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend content={renderCustomizedLegend} />
-          <ReferenceLine
-            x={currentMonth}
-            stroke='#ffa500'
-            strokeDasharray='3 3'
-            label={{ value: 'Current', position: 'top', fill: '#ffa5b0', fontSize: '14px' }} />
-          <Bar
-            dataKey='income'
-            name='Income'
-            radius={[4, 4, 0, 0]}
-            animationDuration={1000}>
-            {data.map((entry, index) => (
-               <Cell key={`income-${index}`} fill={incomeColor} />
-             ))}
-          </Bar>
-          <Bar
-            dataKey='expense'
-            name='Expense'
-            radius={[4, 4, 0, 0]}
-            animationDuration={1000}>
-            {data.map((entry, index) => (
-               <Cell key={`expense-${index}`} fill={expenseColor} />
-             ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+      <div className='w-full overflow-x-auto'>
+        <div className='min-w-[600px]'>
+          {/* Optional: Increase width if many months */}
+          <ResponsiveContainer width='100%' height={500}>
+            <BarChart
+              data={data}
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              barGap={4}
+              barCategoryGap={12}>
+              <CartesianGrid strokeDasharray='0 3' stroke='#f0f0fa' />
+              <XAxis dataKey='label' tick={{ fill: '#666' }} />
+              <YAxis tick={{ fill: '#666' }} />
+              <Tooltip content={<CustomTooltip />} />
+              <Legend content={renderCustomizedLegend} />
+              <ReferenceLine
+                x={currentMonth}
+                stroke='#ffa500'
+                strokeDasharray='3 3'
+                label={{ value: 'Current', position: 'top', fill: '#ffa5b0', fontSize: '14px' }} />
+              <Bar
+                dataKey='income'
+                name='Income'
+                radius={[4, 4, 0, 0]}
+                animationDuration={1000}>
+                {data.map((entry, index) => (
+                   <Cell key={`income-${index}`} fill={incomeColor} />
+                 ))}
+              </Bar>
+              <Bar
+                dataKey='expense'
+                name='Expense'
+                radius={[4, 4, 0, 0]}
+                animationDuration={1000}>
+                {data.map((entry, index) => (
+                   <Cell key={`expense-${index}`} fill={expenseColor} />
+                 ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </div>
   )
 }
