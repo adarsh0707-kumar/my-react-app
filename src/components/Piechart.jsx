@@ -25,7 +25,7 @@ const DoughnutChart = ({ dt }) => {
             cy="50%"
             labelLine={false}
             outerRadius={80}
-            innerRadius={60} // This creates the doughnut effect
+            innerRadius={0} // This creates the doughnut effect
             fill="#8884d8"
             dataKey="value"
           >

@@ -9,6 +9,8 @@ import DoughnutChart from '../components/Piechart.jsx'
 import { Chart } from '../components/Chart.jsx'
 import RecentTransaction from '../components/RecentTransaction.jsx'
 import Accounts from '../components/Accounts.jsx'
+import { DailyChart } from '../components/DailyChart.jsx'
+import { MonthlyBarChart } from '../components/BargraphMonth.jsx'
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -17,7 +19,9 @@ const Dashboard = () => {
     expense: 0,
     chartData: [],
     lastTransactions: [],
-    lastAccounts: []
+    lastAccounts: [],
+    dailyChartData: []
+
   })
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -36,7 +40,9 @@ const Dashboard = () => {
         expense: response.data?.totalExpense || 0,
         chartData: response.data?.chartData || [] ,
         lastTransactions: response.data?.lastTransactions || [],
-        lastAccounts: response.data?.lastAccounts || []
+        lastAccounts: response.data?.lastAccounts || [],
+        dailyChartData: response.data?.dailyChartData || []
+
       })
 
     } catch (err) {
@@ -91,12 +97,21 @@ const Dashboard = () => {
         <div className="flex-1 w-[100%]">
           <Chart data={dashboardData.chartData} />
         </div>
+      </div>
+
+      <div className="flex flex-col-reverse items-stretch gap-12 w-full md:flex-row mt-8">
         
         {(dashboardData.income > 0 || dashboardData.expense > 0) && (
-          <div className="w-[100%] md:w-[25%]">
+          <div
+            className="w-[20%] md:w-[25%]">
             <DoughnutChart dt={dashboardData} />
           </div>
         )}
+
+        <MonthlyBarChart
+          data={dashboardData.chartData}
+          className="w-[70%] md:w-[100%]"
+        />
       </div>
 
       <div className="flex flex-col-reverse gap-0 md:flex-row md:gap-10 2xl:gap-20">
@@ -106,6 +121,21 @@ const Dashboard = () => {
           <Accounts data={ dashboardData.lastAccounts} />
         }
          
+      </div>
+
+      
+
+
+      <div className="flex flex-col gap-6 mt-8">
+  
+  
+        <div className="flex-1 w-full">
+          <DailyChart
+            data={dashboardData.dailyChartData}
+          />
+        </div>
+  
+
       </div>
 
 
