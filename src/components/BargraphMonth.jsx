@@ -37,18 +37,19 @@ export const MonthlyBarChart = ({ data = [] }) => {
           <div className='flex items-center'>
             <div className='w-3 h-3 rounded-full mr-2' style={{ backgroundColor: incomeColor }} />
             <span className='mr-2'>Income:</span>
-            <span>${payload[0].value.toLocaleString()}</span>
+            <span>₹{payload[0].value.toLocaleString()}</span>
           </div>
           <div className='flex items-center'>
             <div className='w-3 h-3 rounded-full mr-2' style={{ backgroundColor: expenseColor }} />
             <span className='mr-2'>Expense:</span>
-            <span>${payload[1].value.toLocaleString()}</span>
+            <span>₹{payload[1].value.toLocaleString()}</span>
           </div>
         </div>
       )
     }
     return null
   }
+
 
   // If no data, show a message
   if (!data || data.length === 0) {

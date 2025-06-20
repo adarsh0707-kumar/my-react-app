@@ -34,8 +34,9 @@ const DoughnutChart = ({ dt }) => {
             ))}
           </Pie>
           <Tooltip 
-            formatter={(value) => [`$${value}`, value === dt?.income ? 'Income' : 'Expense']}
+          formatter={(value, name) => [`₹${Number(value).toLocaleString()}`, name]}
           />
+
           <Legend />
         </PieChart>
       </ResponsiveContainer>
