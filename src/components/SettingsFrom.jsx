@@ -56,7 +56,7 @@ const SettingsFrom = () => {
         currency: selectedCountry.currency,
       }
 
-      const { value: res } = await api.put(`users/update-user/${user?.id}`, newData)
+      const { values: res } = await api.put(`users/update-user/${user?.id}`, newData)
 
       if (res?.user) {
         const newUser = { ...res.user, token: user.token }
@@ -218,7 +218,10 @@ const SettingsFrom = () => {
               type="text"
               label="First Name"
               placeholder="Jon"
-              {...register("firstname")}
+              {...register("firstname", {
+                  required: "First name is required",
+                })
+              }
               error={errors.firstname?.message}
               className="inputStyle"
             />
@@ -231,7 +234,7 @@ const SettingsFrom = () => {
               type="text"
               label="Last Name"
               placeholder="Snow"
-              {...register("lastname")}
+              {...register("lastname") }
               error={errors.lastname?.message}
               className="inputStyle"
             />
@@ -248,7 +251,9 @@ const SettingsFrom = () => {
               type="email"
               label="Email"
               placeholder="Jonsnow@gmail.com"
-              {...register("email")}
+              {...register("email", {
+                required: "Email is required",
+              })}
               error={errors.email?.message}
               className="inputStyle"
             />
@@ -261,7 +266,12 @@ const SettingsFrom = () => {
               type="phone"
               label="Phone Number"
               placeholder="+91 1234567890"
-              {...register("contact")}
+              {...register("contact", {
+                required: "Contact number is required",
+                minLength: {
+                  value: 10,                  
+                },
+              })}
               error={errors.contact?.message}
               className="inputStyle"
             />
@@ -357,7 +367,7 @@ const SettingsFrom = () => {
 
 
 
-
+        <div className="border-b mt-8 border-gray-900 dark:border-gray-700"></div>
       </form>
     </>
   )

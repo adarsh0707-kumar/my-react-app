@@ -3,6 +3,7 @@ import React from 'react'
 import useStore from '../store/index.js'
 import Title from '../components/Title.jsx'
 import SettingsFrom from '../components/SettingsFrom.jsx'
+import ChangePassword from '../components/ChangePassword.jsx'
 
 
 const Settings = () => {
@@ -33,9 +34,10 @@ const Settings = () => {
           
           <SettingsFrom />
 
+          
+          {!user?.provided && <ChangePassword />}
 
           
-          {/* {!user?.provided && <ChangePassword />} */}
 
         </div>
       </div>
