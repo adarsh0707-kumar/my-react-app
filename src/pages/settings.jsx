@@ -8,7 +8,7 @@ import SettingsFrom from '../components/SettingsFrom.jsx'
 const Settings = () => {
 
   const { user } = useStore((state) => state)
-  console.log(user)
+  
 
   return (
     <div className="flex flex-col items-center w-full">

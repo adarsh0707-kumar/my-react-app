@@ -24,6 +24,7 @@ import Input from '../components/ui/input.jsx'
 import Button from '../components/ui/button.jsx'
 import { toast } from 'sonner'
 import api from '../libs/apiCall.js'
+import { BiLoader } from 'react-icons/bi'
 
 const SettingsFrom = () => {
 
@@ -349,7 +350,7 @@ const SettingsFrom = () => {
             type="submit"
             className="px-6 bg-violet-800 text-white hover:bg-violet-700"
           >
-            Save
+            {loading ? <BiLoader className='animate-spin text-white'/> : "Save"}
           </Button>
         </div>
 
