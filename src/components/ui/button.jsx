@@ -4,7 +4,7 @@ import clsx from "clsx";
 const variantClasses = {
   default: "bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500",
   outline:
-    "bg-white text-gray-700 hover:bg-gray-50 focus:ring-indigo-500 border border-gray-200",
+    "bg-transparent text-gray-700 hover:bg-gray-50 focus:ring-indigo-500 border border-gray-200",
   ghost: "bg-transparent hover:bg-gray-100 text-gray-700",
   link: "bg-transparent underline-offset-4 hover:underline text-indigo-600 hover:text-indigo-700",
 };
@@ -37,3 +37,6 @@ export function Button({
     </button>
   );
 }
+
+// Button.displayName = "Button";
+export default Button;

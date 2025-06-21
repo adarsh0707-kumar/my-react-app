@@ -17,5 +17,5 @@ body{
 }
 
 .inputStyle {
-  @apply w-full text-sm border dark:border-gray-800 dark:bg-transparent dark:placeholder:text-gray-700 dark:text-gray-400 dark:outline-none;
+  @apply w-full text-sm border text-gray-400 dark:border-gray-800 dark:bg-transparent dark:placeholder:text-gray-700 dark:text-gray-400 dark:outline-none;
 }
