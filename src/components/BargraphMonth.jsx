@@ -66,7 +66,7 @@ export const MonthlyBarChart = ({ data = [] }) => {
     <div className='flex-1 w-full mt-5'>
       <Title title='Monthly Income vs Expense' />
       <div className='w-full overflow-x-auto'>
-        <div className='min-w-[600px]'>
+        <div className='min-w-[800px]'>
           {/* Optional: Increase width if many months */}
           <ResponsiveContainer width='100%' height={500}>
             <BarChart

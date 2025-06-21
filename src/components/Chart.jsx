@@ -8,7 +8,7 @@ export const Chart = ({ data }) => {
       <Title title='Transaction Activity' />
       {/* Scroll container for small screens */}
       <div className='w-full overflow-x-auto'>
-        <div className='min-w-[700px]'>
+        <div className='min-w-[800px]'>
           {/* Adjust width based on data size */}
           <ResponsiveContainer width='100%' height={500}>
             <LineChart data={data} margin={{ top: 20, right: 40, left: 10, bottom: 10 }}>
