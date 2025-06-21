@@ -39,4 +39,38 @@ export const getDataSevenDaysAgo = () => {
   return sevenDaysAgo.toISOString().split("T")[0];
 }
 
+export async function fetchCountries() {
+  try {
+    const response = await fetch("https://restcountries.com/v3.1/all?fields=name,flags,currencies")
+    
+    const data = await response.json();
+    console.log("Countries Data:", data);
 
+    if (response.ok) {
+      const countries = data.map((country) => {
+        const currencies = country.currencies || {};
+        const currencyCode = Object.keys(currencies)[0];
+
+        return {
+          country: country.name?.common || "",
+          flag: country.flags?.png || "",
+          currency: currencyCode || "",
+        }
+      });
+
+      const sortedCountries = countries.sort((a, b) => {
+        return a.country.localeCompare(b.country);  // Added return here
+      });
+
+      return sortedCountries;
+    }
+    else {
+      console.error(`Error : ${data.message}`);
+      return [];
+    }
+  }
+  catch (err) {
+    console.error("Error fetching countries:", err);
+    return [];
+  }
+}
