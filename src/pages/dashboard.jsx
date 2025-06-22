@@ -25,7 +25,6 @@ const Dashboard = () => {
   })
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
-  console.log("Acc",dashboardData.lastAccounts)
 
   const fetchDashboardStats = async () => {
     try {
@@ -33,7 +32,7 @@ const Dashboard = () => {
       setError(null)
       
       const response = await api.get('/transactions/dashboard')
-      console.log('Dashboard data:', response.data)      
+           
       setDashboardData({
         balance: response.data?.availableBalance || 0,
         income: response.data?.totalIncome || 0,

@@ -17,6 +17,8 @@ import TransferMoney from '../components/transfer-money.jsx'
 
 
 const AccountPage = () => {
+  
+
 
   const { user } = useStore((state) => state)
   
@@ -210,6 +212,7 @@ const AccountPage = () => {
       <AddMoney
         isOpen={isOpenTopup}
         setIsOpen={setIsOpenTopup}
+        id={selectedAccount}
         refetch={fetchAccounts}
         key={new Date().getTime() + 1}
 

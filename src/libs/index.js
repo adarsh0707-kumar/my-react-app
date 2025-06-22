@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 
 
 export const maskAccountNumber = (accountNumber) => {
@@ -44,7 +45,6 @@ export async function fetchCountries() {
     const response = await fetch("https://restcountries.com/v3.1/all?fields=name,flags,currencies")
     
     const data = await response.json();
-    console.log("Countries Data:", data);
 
     if (response.ok) {
       const countries = data.map((country) => {
@@ -73,4 +73,13 @@ export async function fetchCountries() {
     console.error("Error fetching countries:", err);
     return [];
   }
+}
+
+export function generateAccountNumber() {
+  let accountNumber = "";
+  while (accountNumber.length < 13) {
+    const uuid = uuidv4().replace(/-/g, "")
+    accountNumber += uuid.replace(/\D/g,"")
+  }
+  return accountNumber.substr(0,13)
 }
