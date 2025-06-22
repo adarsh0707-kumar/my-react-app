@@ -5,7 +5,7 @@ import { Route, Outlet, Navigate, Routes } from 'react-router-dom'
 import SignUp from './pages/auth/SignUp.jsx'
 import Dashboard from './pages/dashboard'
 import Settings from './pages/settings'
-import AccountPage from './pages/accountPage'
+import AccountPage from './pages/accountPage.jsx'
 import Transaction from './pages/transaction' 
 import useStore from './store/index.js'
 import Login from './pages/auth/Login.jsx'
@@ -59,8 +59,8 @@ function App() {
             <Route path='/' element={<Navigate to="/overview" />} />
             <Route path='/overview' element={<Dashboard />} />
             <Route path='/settings' element={<Settings />} />
-            <Route path='/account' element={<AccountPage />} />
-            <Route path='/transaction' element={<Transaction />} />
+            <Route path='/accounts' element={<AccountPage />} />
+            <Route path='/transactions' element={<Transaction />} />
           </Route>
           
         </Routes>
