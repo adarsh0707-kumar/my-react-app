@@ -38,6 +38,29 @@ const AccountPage = () => {
     setSelectedAccount(el?.id)
     setIsOpenTransfer(true)
   }
+  const handleDeleteAccount = async (account) => {
+    setSelectedAccount(account);
+    console.log("Account:", account);
+  
+    if (!window.confirm('Are you sure you want to delete this account?')) return;
+  
+    try {
+      const storedUser = JSON.parse(localStorage.getItem("user")); // ✅ parse string
+      console.log("Parsed user:", storedUser);
+  
+      if (storedUser?.id === account?.user_id) {
+        const { data } = await api.delete(`/accounts/delete-account/${account?.id}`);
+        toast.success(data?.message || "Account deleted successfully");
+        fetchAccounts();
+      } else {
+        console.log("Id not match");
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || err.message);
+    }
+  };
+  
+  
 
   
 
@@ -74,6 +97,23 @@ const AccountPage = () => {
       </div>
     )
   }
+
+  const getIconFor = (accountName) => {
+    switch (accountName?.toLowerCase()) {
+      case "crypto":
+        return ICONS.crypto;
+      case "visa debit":
+      case "visa":
+        return ICONS["visa debit"];
+      case "cash":
+        return ICONS.cash;
+      case "paypal":
+        return ICONS.paypal;
+      default:
+        return ICONS.default;  // fallback
+    }
+  }
+  
 
   const fetchAccounts = async () => {
     try {
@@ -146,7 +186,8 @@ const AccountPage = () => {
                     >
 
                       <div>
-                        {ICONS[acc?.account_name?.toLowerCase()]}
+                        {getIconFor(acc.account_name)}
+
                       </div>
                       <div className="space-y-2 w-full">
                         <div className="flex items-center justify-between">
@@ -164,6 +205,7 @@ const AccountPage = () => {
                           <AccountMenu
                             addMoney={() => handleOpenAddMoney(acc)}
                             transferMoney={() => handleTransferMoney(acc)}
+                            deleteAccount={() => handleDeleteAccount(acc)}
                           />
                         </div>
 

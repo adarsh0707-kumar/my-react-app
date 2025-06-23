@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import useStore from '../store'
+
 import { useForm } from 'react-hook-form';
 import api from '../libs/apiCall';
 import { toast } from 'sonner';
@@ -16,8 +16,6 @@ const TransferMoney = ({
   setIsOpen,
   refetch
 }) => {
-
-  const { user } = useStore((state) => state);
 
   const {
     register,
