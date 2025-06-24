@@ -38,7 +38,8 @@ export default function AccountMenu({
                 >
                  <BiTransfer /> Transfer Fund
                </button>
-             )}
+              )
+            }
             </MenuItem>
             <MenuItem as={Fragment}>
             {({ active }) => (
@@ -55,7 +56,8 @@ export default function AccountMenu({
                 >
                  <FaMoneyCheck /> Add Money
                </button>
-             )}
+              )
+            }
             </MenuItem>
             {
               deleteAccount && (
@@ -78,7 +80,8 @@ export default function AccountMenu({
                   )
                 }
               </MenuItem>
-            )}
+              )
+            }
           </div>
         </MenuItems>
       </TransitionWrapper>
