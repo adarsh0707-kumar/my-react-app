@@ -68,9 +68,7 @@ const SignUp = () => {
 
       if (res?.user) {
         toast.success("Account created successfully. You can now login...");
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
+        navigate("/login");
       }
     } catch (err) {
       console.error(err);
