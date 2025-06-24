@@ -12,10 +12,16 @@ import Login from './pages/auth/Login.jsx'
 import { setAuthToken }  from './libs/apiCall.js'
 import { Toaster } from 'sonner'
 import Navbar from './components/Navbar.jsx'
+import useDocumentTitle from './libs/useDocumentTitle.js'
 
 const RootLayout = () => {
   const { user } = useStore((state) => state)
   setAuthToken(user?.token || "")
+  console.log(user)
+  useDocumentTitle(
+    user ? `My Finance | ${user.firstname}` : "My Finance"
+  );
+
 
   return !user ? (
     <Navigate to="login" replace={true} />
