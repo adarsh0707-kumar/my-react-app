@@ -1,5 +1,15 @@
 import React from 'react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine} from 'recharts'
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  ReferenceLine
+} from 'recharts'
 import Title from './Title'
 
 export const DailyChart = ({ data }) => {
@@ -8,24 +18,62 @@ export const DailyChart = ({ data }) => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <div className='flex-1 w-full'>
-      <Title title={`Daily Transaction Activity of ${currentMonth} ${currentYear}`} />
+    <div
+      className='flex-1 w-full'>
+      <Title
+        title={`Daily Transaction Activity of ${currentMonth} ${currentYear}`}
+      />
       {/* Horizontal scroll container */}
-      <div className='w-full overflow-x-auto'>
-        <div className='min-w-[800px]'>
+      <div
+        className='w-full overflow-x-auto'
+      >
+        <div
+          className='min-w-[800px]'
+        >
           {/* Adjust width if needed */}
-          <ResponsiveContainer width='100%' height={400}>
-            <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray='0 3' stroke='#f0f0f0' />
+          <ResponsiveContainer
+            width='100%'
+            height={400}
+          >
+            <LineChart
+              data={data}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 5
+              }}
+            >
+              <CartesianGrid
+                strokeDasharray='0 3'
+                stroke='#f0f0f0'
+              />
               <XAxis dataKey='day' />
               <YAxis />
-              <Tooltip contentStyle={{ backgroundColor: '#fff', border: '1px solid #ddd', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
-              <Legend wrapperStyle={{ paddingTop: '20px' }} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#fff',
+                  border: '1px solid #ddd',
+                  borderRadius: '4px',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                }}
+              />
+              <Legend
+                wrapperStyle={{
+                  paddingTop: '20px'
+                }}
+              />
               <ReferenceLine
                 x={currentDay}
                 stroke='#ff7300'
                 strokeDasharray='3 3'
-                label={{ value: 'Today', position: 'top', fill: '#ff7300', fontSize: '12px' }} />
+                label={{
+                  value: 'Today',
+                  position: 'top',
+                  fill: '#ff7300',
+                  fontSize: '12px'
+                }}
+              />
               <Line
                 type='monotone'
                 dataKey='income'
@@ -34,7 +82,8 @@ export const DailyChart = ({ data }) => {
                 activeDot={{ r: 6 }}
                 dot={{ r: 3 }}
                 name='Income'
-                animationDuration={1000} />
+                animationDuration={1000}
+              />
               <Line
                 type='monotone'
                 dataKey='expense'
@@ -43,11 +92,16 @@ export const DailyChart = ({ data }) => {
                 activeDot={{ r: 6 }}
                 dot={{ r: 3 }}
                 name='Expense'
-                animationDuration={1000} />
+                animationDuration={1000}
+              />
             </LineChart>
+
           </ResponsiveContainer>
+
         </div>
+
       </div>
+      
     </div>
   )
 }

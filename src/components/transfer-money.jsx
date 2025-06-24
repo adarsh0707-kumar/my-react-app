@@ -121,9 +121,11 @@ const TransferMoney = ({
                     </p>
 
                     <select
-                      onChange={(e) => {
-                        getAccountBalance(setFormAccountInfo, e.target.value)
-                      }}
+                      onChange={
+                        (e) => {
+                          getAccountBalance(setFormAccountInfo, e.target.value)
+                        }
+                      }
                       className="inputStyles"
                     >
                       <option
@@ -159,9 +161,11 @@ const TransferMoney = ({
                     </p>
 
                     <select 
-                      onChange={(e) => {
-                        getAccountBalance(setToAccountInfo, e.target.value)
-                      }}
+                      onChange={
+                        (e) => {
+                          getAccountBalance(setToAccountInfo, e.target.value)
+                        }
+                      }
                       className='inputStyles'
                     >
                       <option 
@@ -193,9 +197,11 @@ const TransferMoney = ({
 
                   {
                     formAccountInfo?.acc <= 0 && (
-                      <div className="flex items-center gap-2 bg-yellow-400 text-black p-2 mt-6 rounded">
+                      <div
+                        className="flex items-center gap-2 bg-yellow-400 text-black p-2 mt-6 rounded">
                         <MdOutlineWarning size={30} />
-                        <span className='text-sm'>
+                        <span
+                          className='text-sm'>
                           You can not transfer money from this account. Insufficient account balance.
                         </span>
 
@@ -220,7 +226,8 @@ const TransferMoney = ({
                           })}
                           error={errors.amount ? errors.amount.message : ''}
                         />
-                        <div className="w-full mt-8">
+                        <div
+                          className="w-full mt-8">
                           <Button 
                             disabled={loading}
                             type='submit'

@@ -67,9 +67,12 @@ const Dashboard = () => {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center w-full h-[80vh]">
-        <div className="p-4 text-center">
-          <h3 className="mb-4 text-lg font-medium text-red-500">
+      <div
+        className="flex items-center justify-center w-full h-[80vh]">
+        <div
+          className="p-4 text-center">
+          <h3
+            className="mb-4 text-lg font-medium text-red-500">
             Failed to load dashboard data
           </h3>
           <button
@@ -84,7 +87,8 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="px-0 md:px-5 2xl:px-20">
+    <div
+      className="px-0 md:px-5 2xl:px-20">
       <Info
         title="Dashboard"
         subTitle="Monitor your financial activities"
@@ -92,20 +96,26 @@ const Dashboard = () => {
       <Stats dt={dashboardData} />
 
 
-      <div className="flex flex-col-reverse items-stretch gap-6 w-full md:flex-row mt-8">
-        <div className="flex-1 w-[100%]">
-          <Chart data={dashboardData.chartData} />
+      <div
+        className="flex flex-col-reverse items-stretch gap-6 w-full md:flex-row mt-8">
+        <div
+          className="flex-1 w-[100%]">
+          <Chart
+            data={dashboardData.chartData} />
         </div>
       </div>
 
-      <div className="flex flex-col-reverse items-stretch gap-12 w-full md:flex-row mt-8">
+      <div
+        className="flex flex-col-reverse items-stretch gap-12 w-full md:flex-row mt-8">
         
-        {(dashboardData.income > 0 || dashboardData.expense > 0) && (
+        {
+          (dashboardData.income > 0 || dashboardData.expense > 0) && (
           <div
             className="w-[100%] md:w-[20%]">
             <DoughnutChart dt={dashboardData} />
           </div>
-        )}
+          )
+        }
 
         <MonthlyBarChart
           data={dashboardData.chartData}
@@ -113,8 +123,10 @@ const Dashboard = () => {
         />
       </div>
 
-      <div className="flex flex-col-reverse gap-0 md:flex-row md:gap-10 2xl:gap-20">
-        <RecentTransaction data={ dashboardData.lastTransactions} />
+      <div
+        className="flex flex-col-reverse gap-0 md:flex-row md:gap-10 2xl:gap-20">
+        <RecentTransaction
+          data={dashboardData.lastTransactions} />
         {
           dashboardData?.lastAccounts?.length > 0 &&
           <Accounts data={ dashboardData.lastAccounts} />
@@ -125,10 +137,12 @@ const Dashboard = () => {
       
 
 
-      <div className="flex flex-col gap-6 mt-8">
+      <div
+        className="flex flex-col gap-6 mt-8">
   
   
-        <div className="flex-1 w-full">
+        <div
+          className="flex-1 w-full">
           <DailyChart
             data={dashboardData.dailyChartData}
           />

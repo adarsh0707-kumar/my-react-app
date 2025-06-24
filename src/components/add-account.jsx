@@ -11,11 +11,25 @@ import Button from "../components/ui/button.jsx"
 import { toast } from 'sonner'
 import api from "../libs/apiCall.js"
 
-const baseAccounts = ["crypto", "visa debit", "visa", "cash", "paypal", "default"]
+const baseAccounts = [
+  "crypto",
+  "visa debit",
+  "visa",
+  "cash",
+  "paypal",
+  "default"
+]
 
-export default function AddAccount({ isOpen, setIsOpen, refetch }) {
+export default function AddAccount({
+  isOpen,
+  setIsOpen,
+  refetch
+}) {
   const { user } = useStore(state => state)
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
     defaultValues: { account_number: generateAccountNumber() }
   })
 
@@ -44,7 +58,10 @@ export default function AddAccount({ isOpen, setIsOpen, refetch }) {
       ])
     }
 
-    const payload = { ...formValues, name: nameToUse }
+    const payload = {
+      ...formValues,
+      name: nameToUse
+    }
 
     try {
       const { data: res } = await api.post("/accounts/create", payload)
@@ -61,8 +78,13 @@ export default function AddAccount({ isOpen, setIsOpen, refetch }) {
   }
 
   return (
-    <DialogWrapper isOpen={isOpen} closeModel={() => setIsOpen(false)}>
-      <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-slate-900 p-6 text-left">
+    <DialogWrapper
+      isOpen={isOpen}
+      closeModel={() => setIsOpen(false)}
+    >
+      <DialogPanel
+        className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-slate-900 p-6 text-left"
+      >
         <DialogTitle
           as='h3'
           className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-300 mb-4 uppercase"
@@ -72,9 +94,14 @@ export default function AddAccount({ isOpen, setIsOpen, refetch }) {
 
         {/* Icon preview removed */}
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="flex flex-col gap-1 mb-2">
-            <p className="text-gray-700 dark:text-gray-400 text-sm mb-2">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-6"
+        >
+          <div
+            className="flex flex-col gap-1 mb-2">
+            <p
+              className="text-gray-700 dark:text-gray-400 text-sm mb-2">
               Select Account
             </p>
             <select
@@ -86,15 +113,18 @@ export default function AddAccount({ isOpen, setIsOpen, refetch }) {
               }}
               className="bg-transparent appearance-none border border-gray-300 dark:border-gray-800 rounded w-full py-2 px-3 text-gray-700 dark:text-gray-500 outline-none focus:ring-1 ring-blue-500"
             >
-              {accounts.map((acc, i) => (
+              {
+                accounts.map((acc, i) => (
                 <option key={i} value={acc} className="w-full dark:bg-slate-900">
                   {acc}
                 </option>
-              ))}
+                ))
+              }
             </select>
           </div>
 
-          {selectedAccount === 'default' && (
+          {
+            selectedAccount === 'default' && (
             <Input
               name="customName"
               label="Custom Account Name"
@@ -104,27 +134,34 @@ export default function AddAccount({ isOpen, setIsOpen, refetch }) {
               required
               className="inputStyle"
             />
-          )}
+            )
+          }
 
-          {user.accounts?.includes(
+          {
+            user.accounts?.includes(
             selectedAccount === 'default' ? customName.trim() : selectedAccount
           ) && (
-            <div className="flex items-center gap-2 bg-yellow-400 text-black p-2 mt-6 rounded">
-              <MdOutlineWarning size={30} />
-              <span className="text-sm">
-                This account has already been activated. Try another one. Thank you.
-              </span>
-            </div>
-          )}
+              <div
+                className="flex items-center gap-2 bg-yellow-400 text-black p-2 mt-6 rounded">
+                <MdOutlineWarning size={30} />
+                <span
+                  className="text-sm">
+                  This account has already been activated. Try another one. Thank you.
+                </span>
+              </div>
+            )
+          }
 
-          {!user.accounts?.includes(
-            selectedAccount === 'default' ? customName.trim() : selectedAccount
-          ) && (
+          {
+            !user.accounts?.includes(
+              selectedAccount === 'default' ? customName.trim() : selectedAccount
+            ) && (
             <>
               <Input
                 name="account_number"
                 label="Account Number"
-                {...register("account_number", { required: "Account Number is required!" })}
+                  {...register("account_number",
+                    { required: "Account Number is required!" })}
                 error={errors.account_number?.message}
                 className="inputStyle"
               />
@@ -133,22 +170,33 @@ export default function AddAccount({ isOpen, setIsOpen, refetch }) {
                 type="number"
                 name="amount"
                 label="Initial Amount"
-                {...register("amount", { required: "Initial amount is required!" })}
+                  {...register("amount",
+                    { required: "Initial amount is required!" })}
                 error={errors.amount?.message}
                 className="inputStyle"
               />
 
-              <Button disabled={isLoading} type="submit" className="bg-violet-700 text-white w-full mt-4">
-                {isLoading ? (
-                  <BiLoader className="text-xl animate-spin text-white" />
+                <Button
+                  disabled={isLoading}
+                  type="submit"
+                  className="bg-violet-700 text-white w-full mt-4"
+                >
+                  {
+                    isLoading ? (
+                      <BiLoader
+                        className="text-xl animate-spin text-white" />
                 ) : (
                   "Create account"
                 )}
               </Button>
             </>
-          )}
+            )
+          }
+
         </form>
+
       </DialogPanel>
+      
     </DialogWrapper>
   )
 }

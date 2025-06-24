@@ -10,17 +10,29 @@ import { formatCurrency } from '../libs'
 const RecentTransaction = ({ data }) => {
   
   return (
-    <div className="flex-1 w-full py-20">
-      <div className="flex items-center justify-between">
-        <Title title="Latest Transaction" />
-        <Link to="/transactions" className="text-sm text-gray-600 dark:text-gray-500 hover:text-violet-600 hover:underline mr-5">
+    <div
+      className="flex-1 w-full py-20">
+      <div
+        className="flex items-center justify-between">
+        <Title
+          title="Latest Transaction"
+        />
+        <Link
+          to="/transactions"
+          className="text-sm text-gray-600 dark:text-gray-500 hover:text-violet-600 hover:underline mr-5"
+        >
           View All
         </Link>
       </div>
 
-      <div className="mt-5 overflow-x-auto">
-        <table className="w-full">
-          <thead className="w-full border-b border-gray-700">
+      <div
+        className="mt-5 overflow-x-auto">
+        <table
+          className="w-full"
+        >
+          <thead
+            className="w-full border-b border-gray-700"
+          >
             <tr className="w-full text-left text-black dark::text-gray-400">
               <th className="py-2">Date</th>
               <th className="px-2 py-2"> Description</th>
@@ -41,15 +53,21 @@ const RecentTransaction = ({ data }) => {
                     {new Date(item.created_at).toLocaleDateString()}
                   </td>
 
-                  <td className="px-2 py-3">
-                    <div className="flex flex-col">
-                      <p className="text-base font-medium text-black 2xl:text-lg dark:text-gray-400 line-clamp-1">
+                  <td
+                    className="px-2 py-3">
+                    <div
+                      className="flex flex-col">
+                      <p
+                        className="text-base font-medium text-black 2xl:text-lg dark:text-gray-400 line-clamp-1"
+                      >
                         {item?.description}
                       </p>
 
                     </div>
                   </td>
-                  <td className="flex items-center gap-2 px-2 py-3">
+                  <td
+                    className="flex items-center gap-2 px-2 py-3"
+                  >
                     {
                       item?.status === 'Pending' && (
                         <RiProgress3Line
@@ -83,22 +101,29 @@ const RecentTransaction = ({ data }) => {
 
                   </td>
 
-                  <td className='px-2 py-3'>
-                    <p className='line-clamp-1'>
+                  <td
+                    className='px-2 py-3'>
+                    <p
+                      className='line-clamp-1'>
                       {item?.source}
                     </p>
                   </td>
 
-                  <td className='flex items-center px-2 py-4 font-medium text-black dark:text-gray-400'>
+                  <td
+                    className='flex items-center px-2 py-4 font-medium text-black dark:text-gray-400'>
                     <span
                       className={`${
                         item?.type === 'income' ? 'text-emerald-600' : 'text-red-600'
                         }`}
                     >
-                      {item?.type === 'income' ? "+" : "-"}
+                      {
+                        item?.type === 'income' ? "+" : "-"
+                      }
                     </span>
 
-                    {formatCurrency(item?.amount)}
+                    {
+                      formatCurrency(item?.amount)
+                    }
 
                   </td>
 

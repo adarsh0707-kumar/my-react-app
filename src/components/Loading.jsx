@@ -7,10 +7,13 @@ const Loading = () => {
     <div 
       className="w-full flex items-center justify-center py-2"
     >
-      <FaSpinner className="animate-spin text-violet-600 size-{28}"/>
+      <FaSpinner
+        className="animate-spin text-violet-600 size-{28}"
+      />
 
     </div>
   )
 }
 
 export default Loading
+

@@ -83,3 +83,4 @@ export function generateAccountNumber() {
   }
   return accountNumber.substr(0,13)
 }
+

@@ -10,7 +10,8 @@ const sizeClasses = {
 const Input = forwardRef(
   ({ id, label, error, size = "default", className, ...props }, ref) => {
     return (
-      <div className="space-y-2 w-ful">
+      <div
+        className="space-y-2 w-ful">
         {label && (
           <label
             htmlFor={id}
@@ -32,7 +33,12 @@ const Input = forwardRef(
           )}
           {...props}
         />
-        {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+        {
+          error && <p
+            className="mt-2 text-sm text-red-600">
+            {error}
+          </p>
+        }
       </div>
     );
   }

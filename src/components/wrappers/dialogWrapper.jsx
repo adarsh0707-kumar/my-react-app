@@ -2,7 +2,11 @@
 import { Dialog, Transition, TransitionChild } from '@headlessui/react'
 import React, { Fragment } from 'react'
 
-const dialogWrapper = ({isOpen, closeModel, children}) => {
+const dialogWrapper = ({
+  isOpen,
+  closeModel,
+  children
+}) => {
   return (
     <Transition
       appear 
@@ -24,12 +28,15 @@ const dialogWrapper = ({isOpen, closeModel, children}) => {
           leaveTo='opacity-0'
         >
         
-          <div className="fixed inset-0 bg-black/60"/>
+          <div
+            className="fixed inset-0 bg-black/60" />
 
         </TransitionChild>
 
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+        <div
+          className="fixed inset-0 overflow-y-auto">
+          <div
+            className="flex min-h-full items-center justify-center p-4 text-center">
             <TransitionChild
               as={Fragment}
               enter='ease-out duration-300'

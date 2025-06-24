@@ -7,18 +7,29 @@ const PasswordInput = React.forwardRef(({
   className = '', 
   ...props 
 }, ref) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [
+    showPassword,
+    setShowPassword
+  ] = useState(false);
   
   return (
-    <div className="relative">
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+    <div
+      className="relative">
+      <label
+        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+      >
         {label}
       </label>
-      <div className="relative">
+      <div
+        className="relative">
         <input
           ref={ref}
-          type={showPassword ? "text" : "password"}
-          className={`${className} w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-violet-500 dark:focus:ring-violet-600 pr-10`}
+          type={
+            showPassword ? "text" : "password"
+          }
+          className={`
+            ${className} w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-violet-500 dark:focus:ring-violet-600 pr-10`
+          }
           {...props}
         />
         <button
@@ -27,16 +38,25 @@ const PasswordInput = React.forwardRef(({
           onClick={() => setShowPassword(!showPassword)}
           aria-label={showPassword ? "Hide password" : "Show password"}
         >
-          {showPassword ? <BiHide size={20} /> : <BiShow size={20} />}
+          {
+            showPassword ?
+              <BiHide size={20} />
+              : <BiShow size={20}
+              />
+          }
         </button>
       </div>
-      {error && (
+      {
+        error && (
         <p className="mt-1 text-sm text-red-600 transition-all duration-200">
           {error}
         </p>
-      )}
+        )
+      }
     </div>
+
   );
+
 });
 
 PasswordInput.displayName = "PasswordInput";

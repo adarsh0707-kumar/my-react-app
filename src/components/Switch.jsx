@@ -21,12 +21,22 @@ const ThemeSwitch = () => {
   }, [setTheme])
 
   return (
-    <button onClick={toggleTheme} className='outline-none p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors' aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
-      {theme === 'dark' ? (
+    <button
+      onClick={toggleTheme}
+      className='outline-none p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors' aria-label={
+        theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+      }
+    >
+      {
+        theme === 'dark' ? (
          <LuSunMoon size={26} className='text-yellow-400' />
          ) : (
-         <IoMoonOutline size={26} className='text-gray-600 dark:text-gray-300' />
-         )}
+            <IoMoonOutline
+              size={26}
+              className='text-gray-600 dark:text-gray-300'
+            />
+        )
+      }
     </button>
   )
 }

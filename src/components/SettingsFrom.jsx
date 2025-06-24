@@ -28,7 +28,11 @@ import { BiLoader } from 'react-icons/bi'
 
 const SettingsFrom = () => {
 
-  const { user, theme,setTheme } = useStore((state) => state)
+  const {
+    user,
+    theme,
+    setTheme
+  } = useStore((state) => state)
 
   const {
     register,
@@ -104,10 +108,15 @@ const SettingsFrom = () => {
 
   const Countries = () => {
     return (
-      <div className='w-full relative'>
-        <Combobox value={selectedCountry} onChange={setSelectedCountry}>
+      <div
+        className='w-full relative'>
+        <Combobox
+          value={selectedCountry}
+          onChange={setSelectedCountry}
+        >
 
-          <div className="relative mt-1">
+          <div
+            className="relative mt-1">
             <div>
               <ComboboxInput
                 className="inputStyle"
@@ -115,7 +124,9 @@ const SettingsFrom = () => {
                 onChange={(e) => setQuery(e.target.value)}
               />
 
-              <ComboboxButton className="absolute inset-y-0 right-0 flex items-center pr-2">
+              <ComboboxButton
+                className="absolute inset-y-0 right-0 flex items-center pr-2"
+              >
                 <BsChevronExpand
                   className="text-gray-400"
                 />
@@ -131,7 +142,8 @@ const SettingsFrom = () => {
             leaveTo="opacity-0"
             afterLeave={() => setQuery("")}
           >
-            <ComboboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-slate-900 py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none z-10">
+            <ComboboxOptions
+              className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-slate-900 py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none z-10">
 
               {
                 filteredCountries.length === 0 && query !== "" ? (
@@ -186,7 +198,8 @@ const SettingsFrom = () => {
                               )
                             }
                           </>
-                        )}
+                          )
+                        }
                       </ComboboxOption>
                     ))
                 )
@@ -207,11 +220,14 @@ const SettingsFrom = () => {
   return (
     <>
       <form
-        onSubmit={handleSubmit(onSubmit)} className="space-y-5"
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-5"
       >
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div
+          className="flex flex-col md:flex-row items-center justify-between gap-4">
 
-          <div className="w-full">
+          <div
+            className="w-full">
             <Input
               disabled={loading}
               id="firstname"
@@ -227,7 +243,8 @@ const SettingsFrom = () => {
             />
           </div>
 
-          <div className="w-full">
+          <div
+            className="w-full">
             <Input
               disabled={loading}
               id="lastname"
@@ -242,9 +259,11 @@ const SettingsFrom = () => {
 
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div
+          className="flex flex-col md:flex-row items-center justify-between gap-4">
 
-          <div className="w-full">
+          <div
+            className="w-full">
             <Input
               disabled={loading}
               id="email"
@@ -259,7 +278,8 @@ const SettingsFrom = () => {
             />
           </div>
 
-          <div className="w-full">
+          <div
+            className="w-full">
             <Input
               disabled={loading}
               id="contact"
@@ -279,17 +299,28 @@ const SettingsFrom = () => {
 
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div
+          className="flex flex-col md:flex-row items-center justify-between gap-4">
 
-          <div className="w-full">
-            <span className='labelStyles'>Country</span>
+          <div
+            className="w-full">
+            <span
+              className='labelStyles'
+            >
+              Country
+            </span>
             <Countries />
           </div>
 
-          <div className="w-full">
-            <span className='labelStyles'>Currency</span>
+          <div
+            className="w-full">
+            <span
+              className='labelStyles'>
+              Currency
+            </span>
             <select>
-              <option className="inputStyle">
+              <option
+                className="inputStyle">
                 {selectedCountry?.currency || user?.country}
               </option>
             </select>
@@ -298,20 +329,25 @@ const SettingsFrom = () => {
         </div>
 
 
-        <div className="w-full flex items-center justify-between pt-10">
-          <div className="">
-            <p className="text-lg text-black dark:text-gray-400 font-semibold">
+        <div
+          className="w-full flex items-center justify-between pt-10">
+          <div
+            className="">
+            <p
+              className="text-lg text-black dark:text-gray-400 font-semibold">
         
               Appearance
             </p>
-            <span className="lableStyles">
+            <span
+              className="lableStyles">
               Customize how your theme looks on your device.
 
             </span>
 
           </div>
 
-          <div className="w-28 md:w-40">
+          <div
+            className="w-28 md:w-40">
             <select
               className="inputStyles"
               defaultValue={theme}
@@ -326,26 +362,34 @@ const SettingsFrom = () => {
 
         </div>
 
-        <div className="w-full flex items-center justify-between pt-10">
+        <div
+          className="w-full flex items-center justify-between pt-10">
           <div>
-            <p className="text-lg text-black dark:text-gray-400 font-semibold">
+            <p
+              className="text-lg text-black dark:text-gray-400 font-semibold">
               Language
 
             </p>
-            <span className='lableStyles'>
+            <span
+              className='lableStyles'>
               Customize what language you want ot use
             </span>
           </div>
 
-          <div className="w-28 md:w-40">
-            <select className="inputStyles">
-              <option value="en">English</option>
+          <div
+            className="w-28 md:w-40">
+            <select
+              className="inputStyles">
+              <option value="en">
+                English
+              </option>
             </select>
           </div>
 
         </div>
 
-        <div className="w-full flex items-center justify-end gap-5 pt-10">
+        <div
+          className="w-full flex items-center justify-end gap-5 pt-10">
           <Button
             variant="outline"
             loading={loading}
@@ -367,7 +411,8 @@ const SettingsFrom = () => {
 
 
 
-        <div className="border-b mt-8 border-gray-900 dark:border-gray-700"></div>
+        <div
+          className="border-b mt-8 border-gray-900 dark:border-gray-700"></div>
       </form>
     </>
   )

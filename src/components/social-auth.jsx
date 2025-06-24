@@ -14,7 +14,10 @@ import { Button } from "../components/ui/button.jsx"
 import { FcGoogle } from "react-icons/fc"
 import { FaGithub } from "react-icons/fa"
 
-export const SocialAuth = ({ isLoading, setLoading }) => {
+export const SocialAuth = ({
+  isLoading,
+  setLoading
+}) => {
   const { setCredentials } = useStore((state) => state);
   const navigate = useNavigate();
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -97,7 +100,8 @@ export const SocialAuth = ({ isLoading, setLoading }) => {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div
+      className="flex items-center gap-2">
       <Button
         onClick={() => handleSocialSignIn('google')}
         disabled={isLoading || googleLoading}
@@ -105,14 +109,16 @@ export const SocialAuth = ({ isLoading, setLoading }) => {
         className="w-full text-sm font-normal dark:bg-transparent dark:border-gray-800 dark:text-gray-400"
         type="button"
       >
-        {googleLoading ? (
-          <span className="animate-spin">↻</span>
-        ) : (
+        {
+          googleLoading ? (
+            <span className="animate-spin">↻</span>
+          ) : (
           <>
             <FcGoogle className="mr-2 size-5" />
             Google
           </>
-        )}
+          )
+        }
       </Button>
 
       <Button
@@ -122,14 +128,16 @@ export const SocialAuth = ({ isLoading, setLoading }) => {
         className="w-full text-sm font-normal dark:bg-transparent dark:border-gray-800 dark:text-gray-400"
         type="button"
       >
-        {githubLoading ? (
-          <span className="animate-spin">↻</span>
-        ) : (
+        {
+          githubLoading ? (
+            <span className="animate-spin">↻</span>
+          ) : (
           <>
             <FaGithub className="mr-2 size-5" />
             GitHub
           </>
-        )}
+          )
+        }
       </Button>
     </div>
   )

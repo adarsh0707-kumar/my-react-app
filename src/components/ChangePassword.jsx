@@ -44,18 +44,26 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className='py-20'>
-      <form onSubmit={handleSubmit(submitPasswordHandler)}>
+    <div
+      className='py-20'>
+      <form
+        onSubmit={handleSubmit(submitPasswordHandler)}
+      >
         <div>
-          <p className="text-xl font-bold text-black dark:text-white mb-1 mt-10">
+          <p
+            className="text-xl font-bold text-black dark:text-white mb-1 mt-10">
             Change Password
           </p>
-          <span className="lableStyles">
+          <span
+            className="lableStyles"
+          >
             This will be used to log into your account and complete high
             severity actions.
           </span>
 
-          <div className='mt-6 space-y-6'>
+          <div
+            className='mt-6 space-y-6'
+          >
             <PasswordInput
               disabled={loading}
               label="Current Password"
@@ -95,7 +103,9 @@ const ChangePassword = () => {
           </div>
         </div>
 
-        <div className="w-full flex items-center justify-end gap-5 pt-10">
+        <div
+          className="w-full flex items-center justify-end gap-5 pt-10"
+        >
           <Button
             variant="outline"
             loading={loading}
@@ -110,11 +120,16 @@ const ChangePassword = () => {
             type="submit"
             className="px-6 bg-violet-800 text-white hover:bg-violet-700"
           >
-            {loading ? <BiLoader className='animate-spin text-white' /> : "Change Password"}
+            {
+              loading ?
+                <BiLoader className='animate-spin text-white' />
+                :  "Change Password"
+            }
           </Button>
         </div>
         
-        <div className="border-b mt-8 border-gray-900 dark:border-gray-700"></div>
+        <div
+          className="border-b mt-8 border-gray-900 dark:border-gray-700"></div>
       </form>
     </div>
   );

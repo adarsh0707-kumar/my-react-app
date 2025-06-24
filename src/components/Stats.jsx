@@ -33,11 +33,20 @@ const Stats = ({ dt = {} }) => {
   ]
 
   return (
-    <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-      {statsData.map((stat, index) => (
-         <Card key={index} className={`p-6 transition-all duration-300 hover:shadow-lg ${stat.shadow}`}>
-           <div className='flex items-center gap-4'>
-             <div className={`p-3 rounded-lg ${stat.bgColor} ${stat.textColor}`}>
+    <div
+      className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+      {
+        statsData.map((stat, index) => (
+          <Card
+            key={index}
+            className={`p-6 transition-all duration-300 hover:shadow-lg ${stat.shadow}`}
+          >
+            <div
+              className='flex items-center gap-4'
+            >
+              <div
+                className={`p-3 rounded-lg ${stat.bgColor} ${stat.textColor}`}
+              >
                {stat.icon}
              </div>
              <div>
@@ -53,7 +62,8 @@ const Stats = ({ dt = {} }) => {
              </div>
            </div>
          </Card>
-       ))}
+        ))
+      }
     </div>
   )
 }

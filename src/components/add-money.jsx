@@ -87,16 +87,20 @@ const AddMoney = ({
               className="inputStyles"
             />
 
-            <div className="w-full mt-8">
+            <div
+              className="w-full mt-8"
+            >
               <Button
                 disabled={isLoading}
                 type="submit"
-                
                 className="bg-violet-700 text-white w-full"
               >
-              {`Submit ${
-                  watch("amount") ? formatCurrency(watch("amount")) : ''
-                  }`
+                {
+                  `Submit ${
+                  watch("amount") ?
+                  formatCurrency(watch("amount"))
+                  : ''
+                }`
               }
               </Button>
             </div>
