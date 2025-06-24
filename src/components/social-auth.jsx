@@ -1,5 +1,4 @@
 import {
-  GithubAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
   signOut
@@ -12,7 +11,6 @@ import api from "../libs/apiCall.js"
 import { toast } from "sonner"
 import { Button } from "../components/ui/button.jsx"
 import { FcGoogle } from "react-icons/fc"
-import { FaGithub } from "react-icons/fa"
 
 export const SocialAuth = ({
   isLoading,
@@ -21,20 +19,16 @@ export const SocialAuth = ({
   const { setCredentials } = useStore((state) => state);
   const navigate = useNavigate();
   const [googleLoading, setGoogleLoading] = useState(false);
-  const [githubLoading, setGithubLoading] = useState(false);
 
   const handleSocialSignIn = async (provider) => {
     try {
-      // Sign out any existing sessions first
-      // await signOut(auth);
-      
       // Start new sign-in
-      provider === 'google' ? setGoogleLoading(true) : setGithubLoading(true);
+      provider === 'google' ? setGoogleLoading(true) : '';
       setLoading(true);
 
       const authProvider = provider === 'google' 
         ? new GoogleAuthProvider() 
-        : new GithubAuthProvider();
+        : '';
 
       const result = await signInWithPopup(auth, authProvider);
 
@@ -45,7 +39,7 @@ export const SocialAuth = ({
     } finally {
       setLoading(false);
       setGoogleLoading(false);
-      setGithubLoading(false);
+      
     }
   };
 
@@ -121,24 +115,6 @@ export const SocialAuth = ({
         }
       </Button>
 
-      <Button
-        onClick={() => handleSocialSignIn('github')}
-        disabled={isLoading || githubLoading}
-        variant="outline"
-        className="w-full text-sm font-normal dark:bg-transparent dark:border-gray-800 dark:text-gray-400"
-        type="button"
-      >
-        {
-          githubLoading ? (
-            <span className="animate-spin">↻</span>
-          ) : (
-          <>
-            <FaGithub className="mr-2 size-5" />
-            GitHub
-          </>
-          )
-        }
-      </Button>
     </div>
   )
 }
