@@ -17,7 +17,6 @@ import useDocumentTitle from './libs/useDocumentTitle.js'
 const RootLayout = () => {
   const { user } = useStore((state) => state)
   setAuthToken(user?.token || "")
-  console.log(user)
   useDocumentTitle(
     user ? `My Finance | ${user.firstname}` : "My Finance"
   );

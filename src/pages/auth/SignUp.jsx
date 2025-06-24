@@ -66,7 +66,7 @@ const SignUp = () => {
       setLoading(true);
       const { data: res } = await api.post("/auth/signup", data);
 
-      if (res?.user) {
+      if (res?.data) {
         toast.success("Account created successfully. You can now login...");
         navigate("/login");
       }
