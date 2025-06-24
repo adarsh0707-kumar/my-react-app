@@ -28,6 +28,7 @@ import { BiLoader } from 'react-icons/bi'
 
 const SettingsFrom = () => {
 
+
   const {
     user,
     theme,
@@ -41,6 +42,7 @@ const SettingsFrom = () => {
   } = useForm({
     defaultValues: { ...user },
   })
+
 
   const [selectedCountry, setSelectedCountry] = useState({
     country: user?.country, currency: user?.currency
@@ -60,13 +62,19 @@ const SettingsFrom = () => {
         currency: selectedCountry.currency,
       }
 
-      const { values: res } = await api.put(`users/update-user/${user?.id}`, newData)
+      const res = await api.put(
+        `/users/update-user/${user?.id}`,
+        newData
+      );
 
-      if (res?.user) {
-        const newUser = { ...res.user, token: user.token }
+      if (res?.data) {
+        const newUser = {
+          ...res.data,
+          token: user.token
+        };
         localStorage.setItem("user", JSON.stringify(newUser));
 
-        toast.success(res?.message)
+        toast.success(res?.data?.message);
       }
     }
     catch (err) {

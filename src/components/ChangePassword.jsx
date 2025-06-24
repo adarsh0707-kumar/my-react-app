@@ -17,31 +17,56 @@ const ChangePassword = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const submitPasswordHandler = async (data) => {
+  const submitPasswordHandler = async (formData) => {
     try {
       setLoading(true);
-      const { data: res } = await api.put("/users/change-password", {
-        currentPassword: data.currentPassword,
-        newPassword: data.newPassword,
-        confirmPassword: data.confirmPassword
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
+      // Step 1: Get the 'user' string from localStorage
+      const userString = localStorage.getItem("user");
+
+      // Step 2: Parse it (only if it's not null)
       
-      if(res?.status === "success") {
-        toast.success(res?.message);
+      const userObj = JSON.parse(userString);
+
+        // Step 3: Access the token property
+      const token = userObj.token;
+
+
+      
+
+      const response = await api.put(
+        "/users/change-password",
+        {
+          currentPassword: formData.currentPassword,
+          newPassword: formData.newPassword,
+          confirmPassword: formData.confirmPassword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      
+
+      const res = response.data;
+
+      // Adjust this check based on your actual API response structure:
+      if (res.status === "success" || res.success === true) {
+        toast.success(res.message || "Password changed successfully");
         reset();
+      } else {
+        toast.error(res.message || "Failed to change password");
       }
-    } catch (error) {
-      console.error("Error changing password:", error);
-      toast.error(error?.response?.data?.message || "Failed to change password");
+    } catch (err) {
+      console.error("Error changing password:", err);
+      toast.error(err.response?.data?.message || "Failed to change password");
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div
